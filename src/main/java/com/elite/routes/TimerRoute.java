@@ -3,13 +3,13 @@ package com.elite.routes;
 import com.elite.util.Decryptor;
 import com.elite.util.Encryptor;
 import com.elite.util.JasyptPropertyService;
-import org.apache.camel.Exchange;
-import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.jms.JmsComponent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
+import javax.annotation.Resource;
 
 @Component
 public class TimerRoute extends RouteBuilder {
@@ -22,6 +22,12 @@ public class TimerRoute extends RouteBuilder {
 
     @Autowired
     private Decryptor decryptor;
+
+    @Autowired
+    Environment environment;
+
+    @Resource(name = "activeMqComponent")
+    JmsComponent activeMqComponent;
 
     @Override
     public void configure() throws Exception {
@@ -47,5 +53,16 @@ public class TimerRoute extends RouteBuilder {
             }
         });
         */
+
+        /*
+        String fromActiveMqUri = "activeMqComponent:queue:" + environment.getProperty("jms.flow.test.q");
+        from(fromActiveMqUri).process(new Processor() {
+            @Override
+            public void process(Exchange exchange) throws Exception {
+                System.out.println("Read from active mq: " + (exchange.getIn().getBody()).toString());
+            }
+        });
+        */
+
     }
 }

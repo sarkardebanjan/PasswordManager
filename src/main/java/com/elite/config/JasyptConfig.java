@@ -1,9 +1,9 @@
 package com.elite.config;
 
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.jasypt.encryption.StringEncryptor;
 import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;
 import org.jasypt.encryption.pbe.config.SimpleStringPBEConfig;
+import org.jasypt.iv.RandomIvGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -19,6 +19,7 @@ public class JasyptConfig {
         SimpleStringPBEConfig config = new SimpleStringPBEConfig();
         config.setPassword(System.getenv("APP_ENCRYPTION_PWD"));
         config.setAlgorithm("PBEWITHMD5ANDDES");
+        //config.setIvGenerator(new RandomIvGenerator());
         //Was facing an issue with better algorithms like PBEWITHHMACSHA512ANDAES_256 as encryption is happening but decryption is not working even on windows command line cli version of jasypt. JCE is unlimited strength already.
         //config.setProvider(new BouncyCastleProvider());
         //config.setKeyObtentionIterations("1000");
