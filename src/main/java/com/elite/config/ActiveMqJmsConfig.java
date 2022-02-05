@@ -47,6 +47,8 @@ public class ActiveMqJmsConfig {
         jmsConfiguration.setTransacted(true);
         jmsConfiguration.setLazyCreateTransactionManager(false);
         jmsConfiguration.setDisableTimeToLive(true);
+        //jmsConfiguration.setDisableTimeToLive(false);
+        //jmsConfiguration.setTimeToLive(300000);
         jmsConfiguration.setTransactionManager(jmsTransactionManager());
         return jmsConfiguration;
     }
